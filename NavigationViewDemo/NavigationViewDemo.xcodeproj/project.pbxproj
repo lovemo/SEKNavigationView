@@ -14,8 +14,8 @@
 		042FA1451D6DA287001BE1B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042FA1431D6DA287001BE1B2 /* LaunchScreen.storyboard */; };
 		042FA1511D6DB70A001BE1B2 /* SegmentBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FA1501D6DB70A001BE1B2 /* SegmentBaseViewController.swift */; };
 		042FA1561D6DC09A001BE1B2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FA1551D6DC09A001BE1B2 /* MainViewController.swift */; };
-		042FA15C1D6DC0DA001BE1B2 /* SEKNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FA15A1D6DC0DA001BE1B2 /* SEKNavigationView.swift */; };
-		042FA15D1D6DC0DA001BE1B2 /* SEKView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FA15B1D6DC0DA001BE1B2 /* SEKView+Frame.swift */; };
+		042FA1611D6DC315001BE1B2 /* SEKNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FA15F1D6DC315001BE1B2 /* SEKNavigationView.swift */; };
+		042FA1621D6DC315001BE1B2 /* SEKView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042FA1601D6DC315001BE1B2 /* SEKView+Frame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +28,8 @@
 		042FA1461D6DA287001BE1B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		042FA1501D6DB70A001BE1B2 /* SegmentBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentBaseViewController.swift; sourceTree = "<group>"; };
 		042FA1551D6DC09A001BE1B2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		042FA15A1D6DC0DA001BE1B2 /* SEKNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEKNavigationView.swift; sourceTree = "<group>"; };
-		042FA15B1D6DC0DA001BE1B2 /* SEKView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SEKView+Frame.swift"; sourceTree = "<group>"; };
+		042FA15F1D6DC315001BE1B2 /* SEKNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEKNavigationView.swift; sourceTree = "<group>"; };
+		042FA1601D6DC315001BE1B2 /* SEKView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SEKView+Frame.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 		042FA12E1D6DA287001BE1B2 = {
 			isa = PBXGroup;
 			children = (
-				042FA1591D6DC0DA001BE1B2 /* SEKNavigationView */,
+				042FA15E1D6DC315001BE1B2 /* SEKNavigationView */,
 				042FA1391D6DA287001BE1B2 /* NavigationViewDemo */,
 				042FA1381D6DA287001BE1B2 /* Products */,
 			);
@@ -83,13 +83,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		042FA1591D6DC0DA001BE1B2 /* SEKNavigationView */ = {
+		042FA15E1D6DC315001BE1B2 /* SEKNavigationView */ = {
 			isa = PBXGroup;
 			children = (
-				042FA15A1D6DC0DA001BE1B2 /* SEKNavigationView.swift */,
-				042FA15B1D6DC0DA001BE1B2 /* SEKView+Frame.swift */,
+				042FA15F1D6DC315001BE1B2 /* SEKNavigationView.swift */,
+				042FA1601D6DC315001BE1B2 /* SEKView+Frame.swift */,
 			);
-			path = SEKNavigationView;
+			name = SEKNavigationView;
+			path = ../SEKNavigationView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,10 +166,10 @@
 			files = (
 				042FA13D1D6DA287001BE1B2 /* ViewController.swift in Sources */,
 				042FA13B1D6DA287001BE1B2 /* AppDelegate.swift in Sources */,
-				042FA15D1D6DC0DA001BE1B2 /* SEKView+Frame.swift in Sources */,
+				042FA1621D6DC315001BE1B2 /* SEKView+Frame.swift in Sources */,
 				042FA1511D6DB70A001BE1B2 /* SegmentBaseViewController.swift in Sources */,
 				042FA1561D6DC09A001BE1B2 /* MainViewController.swift in Sources */,
-				042FA15C1D6DC0DA001BE1B2 /* SEKNavigationView.swift in Sources */,
+				042FA1611D6DC315001BE1B2 /* SEKNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
