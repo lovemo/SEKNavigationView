@@ -10,7 +10,7 @@ SEKNavigationView - lazy used viewController
 #### usage:
 CocoaPods：
 ```
-	pod 'SEKNavigationView'
+pod 'SEKNavigationView'
 ```
 ---
 
