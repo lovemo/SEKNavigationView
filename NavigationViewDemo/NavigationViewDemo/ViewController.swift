@@ -15,7 +15,7 @@ class ViewController: SegmentBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         // 设置导航试图
         setupNavView()
         // 初始化子控制器
@@ -24,34 +24,34 @@ class ViewController: SegmentBaseViewController {
         setupContentView()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBar.isHidden = false
     }
     
     /// 设置导航视图
-    private func setupNavView() {
-        navigationController?.navigationBar.hidden = true
-        topNavView.frame = CGRectMake(0, 20, self.view.width, 44)
-        topNavView.backgroundColor = UIColor.whiteColor()
+    fileprivate func setupNavView() {
+        navigationController?.navigationBar.isHidden = true
+        topNavView.frame = CGRect(x: 0, y: 20, width: self.view.width, height: 44)
+        topNavView.backgroundColor = UIColor.white
         topNavView.delegate = self
-        topNavView.titleButtonNormalColor = UIColor.redColor().colorWithAlphaComponent(0.5)
-        topNavView.titleButtonDisabledColor = UIColor.redColor()
-        topNavView.titleButtonTitleFont = UIFont.systemFontOfSize(16)
+        topNavView.titleButtonNormalColor = UIColor.red.withAlphaComponent(0.5)
+        topNavView.titleButtonDisabledColor = UIColor.red
+        topNavView.titleButtonTitleFont = UIFont.systemFont(ofSize: 16)
         topNavView.titles = titles
         topNavView.titlesViewW = topNavView.width
         if isShowNavgationViewButton {
             topNavView.titlesViewW = topNavView.width - 100
-            topNavView.leftButton?.hidden = false
-            topNavView.rightButton?.hidden = false
-            topNavView.leftButton?.setImage(UIImage(named: "icon_menu"), forState: .Normal)
-            topNavView.rightButton?.setImage(UIImage(named: "icon_videocam"), forState: .Normal)
+            topNavView.leftButton?.isHidden = false
+            topNavView.rightButton?.isHidden = false
+            topNavView.leftButton?.setImage(UIImage(named: "icon_menu"), for: UIControlState())
+            topNavView.rightButton?.setImage(UIImage(named: "icon_videocam"), for: UIControlState())
         }
         view.addSubview(topNavView)
     }
     
     /// 初始化子控制器
-    private func setupChildVces()
+    fileprivate func setupChildVces()
     {
         for _ in 0..<titles.count {
             let voice = UIViewController()
@@ -61,7 +61,7 @@ class ViewController: SegmentBaseViewController {
         
     }
     /// 底部的scrollView
-    private func setupContentView()
+    fileprivate func setupContentView()
     {
         // 不要自动调整inset
         automaticallyAdjustsScrollViewInsets = false
@@ -69,7 +69,7 @@ class ViewController: SegmentBaseViewController {
         self.scrollViewDidEndScrollingAnimation(contentView)
     }
 
-    private func randomColor() -> UIColor {
+    fileprivate func randomColor() -> UIColor {
         let red = CGFloat(arc4random_uniform(256)) / 255.0
         let green = CGFloat(arc4random_uniform(256)) / 255.0
         let blue = CGFloat(arc4random_uniform(256)) / 255.0

@@ -55,7 +55,7 @@ public extension UIView{
     
     public var centerX : CGFloat{
         set(value){
-            self.center = CGPointMake(value, self.center.y)
+            self.center = CGPoint(x: value, y: self.center.y)
         }
         get{
             return self.center.x
@@ -64,7 +64,7 @@ public extension UIView{
     
     public var centerY : CGFloat{
         set(value){
-            self.center = CGPointMake(self.center.x, value)
+            self.center = CGPoint(x: self.center.x, y: value)
         }
         get{
             return self.center.y
@@ -117,15 +117,15 @@ public extension UIView{
     
     func isShowingOnKeyWindow() -> Bool {
         // 主窗口
-        let keyWindow = UIApplication.sharedApplication().keyWindow
+        let keyWindow = UIApplication.shared.keyWindow
         
         // 以主窗口左上角为坐标原点, 计算self的矩形框
-        let newFrame = keyWindow?.convertRect(self.frame, fromView: self.superview)
+        let newFrame = keyWindow?.convert(self.frame, from: self.superview)
         let winBounds = keyWindow?.bounds
         
         // 主窗口的bounds 和 self的矩形框 是否有重叠
-        let intersects = CGRectIntersectsRect(newFrame!, winBounds!)
+        let intersects = newFrame!.intersects(winBounds!)
         
-        return !self.hidden && self.alpha > 0.01 && self.window == keyWindow && intersects
+        return !self.isHidden && self.alpha > 0.01 && self.window == keyWindow && intersects
     }
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                  = 'SEKNavigationView'
-s.version      = '0.0.1'
+s.version      = '0.0.2'
 s.summary               = 'SEKNavigationView is a easy to develop iOS'
 s.homepage              = 'https://github.com/lovemo/SEKNavigationView'
 s.platform     = :ios, '8.0'

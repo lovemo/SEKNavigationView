@@ -16,9 +16,9 @@ class SegmentBaseViewController: UIViewController {
         contentView.frame = self.view.bounds
         contentView.y = 64
         contentView.delegate = self
-        contentView.pagingEnabled = true
-        self.view.insertSubview(contentView, atIndex:0)
-        contentView.contentSize = CGSizeMake(contentView.width * CGFloat(self.childViewControllers.count), 0)
+        contentView.isPagingEnabled = true
+        self.view.insertSubview(contentView, at:0)
+        contentView.contentSize = CGSize(width: contentView.width * CGFloat(self.childViewControllers.count), height: 0)
         return contentView
     }()
     
@@ -31,25 +31,25 @@ class SegmentBaseViewController: UIViewController {
 }
 extension SegmentBaseViewController: SEKNavigationViewDelegate {
     
-    func navButtonClick(button: UIButton) {
+    func navButtonClick(_ button: UIButton) {
         // 滚动
         var offset = self.contentView.contentOffset
         offset.x = CGFloat(button.tag) * self.contentView.width
         contentView.setContentOffset(offset, animated: true)
     }
     
-    func navLeftButtonClick(button: UIButton) {
-        navigationController?.popViewControllerAnimated(true)
+    func navLeftButtonClick(_ button: UIButton) {
+        navigationController?.popViewController(animated: true)
         print("左")
     }
     
-    func navRightButtonClick(button: UIButton) {
+    func navRightButtonClick(_ button: UIButton) {
         print("右")
     }
 }
 
 extension SegmentBaseViewController: UIScrollViewDelegate {
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         // 当前的索引
         let index = Int(scrollView.contentOffset.x / scrollView.width)
         
@@ -61,7 +61,7 @@ extension SegmentBaseViewController: UIScrollViewDelegate {
         scrollView.addSubview(vc.view)
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.scrollViewDidEndScrollingAnimation(scrollView)
         
         // 点击按钮

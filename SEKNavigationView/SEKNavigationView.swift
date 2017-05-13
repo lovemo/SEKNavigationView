@@ -8,14 +8,15 @@
 
 import UIKit
 
+
 /// 导航栏代理
 @objc protocol SEKNavigationViewDelegate{
     /// 导航栏按钮点击
-    func navButtonClick(button: UIButton)
+    func navButtonClick(_ button: UIButton)
     /// 导航栏按钮点击
-    optional func navLeftButtonClick(button: UIButton)
+    @objc optional func navLeftButtonClick(_ button: UIButton)
     /// 导航栏按钮点击
-    optional func navRightButtonClick(button: UIButton)
+    @objc optional func navRightButtonClick(_ button: UIButton)
 }
 
 class SEKNavigationView: UIView {
@@ -35,32 +36,32 @@ class SEKNavigationView: UIView {
     /// 标题视图的宽度
     var titlesViewW: CGFloat = 0.0 {
         didSet{
-            self.layoutIfNeeded()
+            setNeedsLayout()
         }
     }
     
     /// 标题视图中按钮的间隔距离
     var titlesViewMargin: CGFloat = 6.0 {
         didSet{
-            self.layoutIfNeeded()
+            setNeedsLayout()
         }
     }
     
     /// 指示器与按钮的间隔距离
     var indicatorViewMargin: CGFloat = 5.0 {
         didSet{
-            self.layoutIfNeeded()
+            setNeedsLayout()
         }
     }
     
     /// 标题按钮的正常颜色，即非选中颜色，建议在设置标题数组前设置此属性
-    var titleButtonNormalColor:UIColor = UIColor.grayColor()
+    var titleButtonNormalColor:UIColor = UIColor.gray
     
     /// 标题按钮的禁用颜色，即选中颜色，防止用户多次点击，建议在设置标题数组前设置此属性
-    var titleButtonDisabledColor:UIColor = UIColor.redColor()
+    var titleButtonDisabledColor:UIColor = UIColor.red
     
     /// 标题按钮的文字大小，建议在设置标题数组前设置此属性
-    var titleButtonTitleFont: UIFont = UIFont.systemFontOfSize(14)
+    var titleButtonTitleFont: UIFont = UIFont.systemFont(ofSize: 14)
     
     /// 顶部的所有标签
     lazy var titlesView: UIScrollView = {
@@ -68,7 +69,7 @@ class SEKNavigationView: UIView {
         let titlesView = UIScrollView()
         titlesView.showsVerticalScrollIndicator = false
         titlesView.showsHorizontalScrollIndicator = false
-        titlesView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+        titlesView.backgroundColor = UIColor.white.withAlphaComponent(0.7)
         self.addSubview(titlesView)
         return titlesView
     }()
@@ -77,7 +78,7 @@ class SEKNavigationView: UIView {
     lazy var indicatorView: UIView = {
         let indicatorView = UIView()
         // 底部的红色指示器
-        indicatorView.backgroundColor = UIColor.redColor()
+        indicatorView.backgroundColor = UIColor.red
         indicatorView.tag = -1
         return indicatorView
     }()
@@ -85,8 +86,8 @@ class SEKNavigationView: UIView {
     /// 左边按钮，默认隐藏
     lazy var leftButton: UIButton? =  {
         let leftButton = UIButton()
-        leftButton.hidden = true
-        leftButton.addTarget(self, action: #selector(SEKNavigationView.leftButtonClick(_:)), forControlEvents: .TouchUpInside)
+        leftButton.isHidden = true
+        leftButton.addTarget(self, action: #selector(SEKNavigationView.leftButtonClick(_:)), for: .touchUpInside)
         self.addSubview(leftButton)
         return leftButton
     }()
@@ -94,8 +95,8 @@ class SEKNavigationView: UIView {
     /// 右边按钮，默认隐藏
     lazy var rightButton: UIButton? = {
         let rightButton = UIButton()
-        rightButton.hidden = true
-        rightButton.addTarget(self, action: #selector(SEKNavigationView.rightButtonClick(_:)), forControlEvents: .TouchUpInside)
+        rightButton.isHidden = true
+        rightButton.addTarget(self, action: #selector(SEKNavigationView.rightButtonClick(_:)), for: .touchUpInside)
         self.addSubview(rightButton)
         return rightButton
     }()
@@ -103,20 +104,20 @@ class SEKNavigationView: UIView {
     /// 标题数组
     var titles: [String]? {
         didSet {
-            if titles?.count <= 0 {return}
-            for i in 0..<titles!.count {
+            guard let titles = titles else { return}
+            for i in 0..<titles.count {
                 let button = UIButton()
                 button.tag = i
-                button.setTitle(titles![i], forState: .Normal)
-                button.setTitleColor(titleButtonNormalColor, forState: .Normal)
-                button.setTitleColor(titleButtonDisabledColor, forState: .Disabled)
+                button.setTitle(titles[i], for: UIControlState())
+                button.setTitleColor(titleButtonNormalColor, for: UIControlState())
+                button.setTitleColor(titleButtonDisabledColor, for: .disabled)
                 button.titleLabel?.font = titleButtonTitleFont
-                button.addTarget(self, action: #selector(SEKNavigationView.titleClick(_:)), forControlEvents: .TouchUpInside)
+                button.addTarget(self, action: #selector(SEKNavigationView.titleClick(_:)), for: .touchUpInside)
                 titlesView.addSubview(button)
                 
                 // 默认点击了哪个个按钮
-                if i == (self.isSelectedMiddleButton ? ((titles!.count - 1) / 2) : 0) {
-                    button.enabled = false
+                if i == (self.isSelectedMiddleButton ? ((titles.count - 1) / 2) : 0) {
+                    button.isEnabled = false
                     selectedButton = button
                 }
                 
@@ -133,27 +134,27 @@ class SEKNavigationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func titleClick(button: UIButton)
+    func titleClick(_ button: UIButton)
     {
         // 修改按钮状态
-        selectedButton.enabled = true
-        button.enabled = false
+        selectedButton.isEnabled = true
+        button.isEnabled = false
         selectedButton = button
         
         // 动画
-        UIView.animateWithDuration(0.25) {
+        UIView.animate(withDuration: 0.25, animations: {
             self.indicatorView.width = self.isFillout ? self.titlesViewW / CGFloat(self.titles!.count) : button.titleLabel!.width
             self.indicatorView.centerX = button.centerX;
-        }
+        })
         
         delegate?.navButtonClick(button)
     }
     
-    func leftButtonClick( button: UIButton) {
+    func leftButtonClick( _ button: UIButton) {
         delegate?.navLeftButtonClick!(button)
     }
     
-    func rightButtonClick( button: UIButton) {
+    func rightButtonClick( _ button: UIButton) {
         delegate?.navRightButtonClick!(button)
     }
     
@@ -167,48 +168,49 @@ class SEKNavigationView: UIView {
         leftButton?.y = (self.height - buttonItemW) * 0.5
         leftButton?.width = buttonItemW
         leftButton?.height = buttonItemW
-
+        
         // 布局右边按钮
         rightButton?.x = self.width - buttonItemX - buttonItemW
         rightButton?.y = (self.height - buttonItemW) * 0.5
         rightButton?.width = buttonItemW
         rightButton?.height = buttonItemW
-       
+        
         // 布局titlesView
-        if titles?.count <= 0 || titlesView.subviews.count <= 0 {return}
+        guard let titles = titles else { return}
+        if titles.count <= 0 || titlesView.subviews.count <= 0 {return}
         self.titlesView.frame = self.bounds
         self.titlesView.width = titlesViewW
         self.titlesView.centerX = self.centerX
         indicatorView.height = 3
         indicatorView.y = titlesView.height - indicatorView.height
-   
+        
         let height = titlesView.height
         var lastBtn = UIButton()
-        lastBtn.frame = CGRectZero
+        lastBtn.frame = CGRect.zero
         
-        for i in 0..<titles!.count {
-            if !titlesView.subviews[i].isKindOfClass(UIButton.classForCoder()) {
+        for i in 0..<titles.count {
+            if !titlesView.subviews[i].isKind(of: UIButton.classForCoder()) {
                 continue
             }
             let button = titlesView.subviews[i] as! UIButton
             button.tag = i
             button.height = height
             button.sizeToFit()
-            button.x = CGRectGetMaxX(lastBtn.frame) + titlesViewMargin
+            button.x = lastBtn.frame.maxX + titlesViewMargin
             lastBtn = button
             
             // 布局指示器的位置
-            self.indicatorView.y = CGRectGetMaxY(button.frame) + indicatorViewMargin
+            self.indicatorView.y = button.frame.maxY + indicatorViewMargin
             
-            if i == (self.isSelectedMiddleButton ? ((titles!.count - 1) / 2) : 0) {
+            if i == (self.isSelectedMiddleButton ? ((titles.count - 1) / 2) : 0) {
                 // 让按钮内部的label根据文字内容来计算尺寸
                 button.titleLabel!.sizeToFit()
                 self.indicatorView.width = self.isFillout ? self.titlesViewW / CGFloat(self.titles!.count) : button.titleLabel!.width
                 self.indicatorView.centerX = button.centerX
             }
-            if i == titles!.count - 1 {
+            if i == titles.count - 1 {
                 // 设置titlesView的contentSize
-                titlesView.contentSize = CGSize(width: CGRectGetMaxX(button.frame), height: titlesView.height)
+                titlesView.contentSize = CGSize(width: button.frame.maxX, height: titlesView.height)
             }
         }
         
